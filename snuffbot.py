@@ -5,7 +5,7 @@ import datetime
 
 client = discord.Client()
 
-timeout = 60 * random.randint(30,60)  # 5 minutes
+timeout = 60 * random.randint(50,120)  # 5 minutes
 
 messeges = ['Ktoś, coś?',
             'It\'s snuff time!',
