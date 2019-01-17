@@ -1,11 +1,12 @@
 import discord
-import asyncio
+from discord.ext import commands
 import random
 import datetime
+import asyncio
 
 client = discord.Client()
 
-timeout = 60 * random.randint(50,120)  # 5 minutes
+timeout = 60 * random.randint(30,60)  # 5 minutes
 
 messeges = ['Ktoś, coś?',
             'It\'s snuff time!',
@@ -18,15 +19,15 @@ messeges = ['Ktoś, coś?',
             'Jest {}:{}, wiecie co to oznacza?'.format(datetime.datetime.now().hour,datetime.datetime.now().minute)
             ]
 
-
 async def my_background_task():
     await client.wait_until_ready()
-    counter = 0
+
     channel = discord.Object(id='407965766772719618')
-    while not client.is_closed:
-        counter += 1
-        await client.send_message(channel, random.choice(messeges))
-        await asyncio.sleep(timeout) # task runs every 60 seconds
+
+    while True:
+        if 16 < datetime.datetime.now().hour or datetime.datetime.now().hour < 2:
+            await client.send_message(channel, random.choice(messeges))
+            await asyncio.sleep(timeout)
 
 @client.event
 async def on_ready():
@@ -34,6 +35,8 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
+
+
 
 client.loop.create_task(my_background_task())
 client.run('NTM1MTE2NDQ3ODIzOTUzOTMx.DyDmoA.QPfv7qUJ_WM9JyE-UVJxXDTFeXU')
